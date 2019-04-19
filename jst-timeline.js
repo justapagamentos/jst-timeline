@@ -109,7 +109,7 @@ $.fn.loadTimeline = function(data, options) {
       $(".timeline-box ul").append(`
         <li class="data-box${customClass ? ` ${customClass}` : ""}" ${
         iconClass ? "" : 'style="margin-top: 15px;"'
-      } ${id ? `id="${id}"` : ''}>
+      } ${id ? `id="${id}"` : ""}>
           <span class="data">
           ${
             iconClass
@@ -120,21 +120,20 @@ $.fn.loadTimeline = function(data, options) {
           </span>
           <div class="vertical-line"></div>
           <div class="ball"></div>
-          <p>${date}</p>
+          <p class="find-date">${date}</p>
         </li>
       `);
     } else if (!label && showEmptyDates) {
-      const onlyNumberDate = date.replace(/\D/g, "");
       $(".timeline-box ul").append(
         `<li class="empty-day-box""><span class="empty-day${
           isFirstDay(date) ? " empty-first-day" : ""
         }"></span>
-        <span class="date hide-date">${date}</span></li>`
+        <span class="find-date date hide-date">${date}</span></li>`
       );
     }
   }
 
-  turnoffEvents();
+  $(this).turnoffEvents();
 
   dragEvents(orderedData);
   if (showEmptyDates) {
@@ -143,9 +142,9 @@ $.fn.loadTimeline = function(data, options) {
 
   // Adds click event on data-box
   if (daysClicked) {
-    $('.data-box').click(e => {
-        daysClicked(e);
-    })
+    $(".data-box").click(e => {
+      daysClicked(e);
+    });
   }
 
   function isFirstDay(date) {
@@ -218,10 +217,30 @@ $.fn.loadTimeline = function(data, options) {
         .attr("class", "date hide-date");
     });
   }
+};
 
-  /**@descript Turnoff all events */
-  function turnoffEvents() {
-    $(".empty-day-box").off();
-    $(".timeline-box").off();
-  }
+/**@description Turnoff all events of the timeline */
+$.fn.turnoffEvents = function() {
+  $(this).off();
+};
+
+$.fn.goToDate = function(date) {
+  let widthUntilDate = 0;
+  $(this)
+    .find("li")
+    .find(".find-date")
+    .each(i => {
+      const { innerText, scrollWidth } = $(this)
+        .find("li")
+        .find(".find-date")
+        .get(i);
+      if (innerText !== date) {
+        widthUntilDate += scrollWidth + 18;
+      } else {
+        $(this)
+          .find(".father-box")
+          .attr("style", `transform: translate(-${widthUntilDate}px)`);
+        return;
+      }
+    });
 };
