@@ -97,7 +97,7 @@ $(#timeline).turnOffEvents();
 |key         |Description                     |Required|Type                         |
 |------------|--------------------------------|:------:|:---------------------------:|
 |label       |The inner text                  |yes     |string                       |
-|date        |The date                        |yes     |string (format: 'YYYY-MM-DD')|
+|date        |The date                        |yes     |string (format: 'DD-MM-YYYY')|
 |id          |An id for the field             |no      |any                          |
 |iconClass   |An clas of an icon for this day |no      |string                       |
 |customClass |An class for this day           |no      |string                       |
