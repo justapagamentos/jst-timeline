@@ -224,6 +224,10 @@ $.fn.turnoffEvents = function() {
   $(this).off();
 };
 
+/**
+ * @description Go to a specific date that's loaded
+ * @param {string} date
+ */
 $.fn.goToDate = function(date) {
   let widthUntilDate = 0;
   $(this)
