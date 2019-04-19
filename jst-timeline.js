@@ -65,12 +65,14 @@ $.fn.loadTimeline = function(data, options) {
         </li>
       `);
     } else if (!label && showEmptyDates) {
-      $(".timeline-box ul").append(
-        `<li class="empty-day-box""><span class="empty-day${
-          isFirstDay(date) ? " empty-first-day" : ""
-        }"></span>
+      $(this)
+        .find(".father-box")
+        .append(
+          `<li class="empty-day-box""><span class="empty-day${
+            isFirstDay(date) ? " empty-first-day" : ""
+          }"></span>
         <span class="find-date date hide-date">${date}</span></li>`
-      );
+        );
     }
   }
 
