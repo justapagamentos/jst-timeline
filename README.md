@@ -20,7 +20,7 @@ cdn
 3. Now you can simply use calling:
 index.js:
 ```javascript
-const data1 = [
+const data = [
   { label: "Em estoque (Recife)", date: "10-04-1995", iconId: 0 },
   { label: "Em estoque (Alpha)", date: "16-04-1995", iconId: 0 },
   { label: "Em manutenção", date: "13-04-1995", iconId: 1 },
