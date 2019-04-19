@@ -99,7 +99,7 @@ $(#timeline).turnOffEvents();
 |label       |The inner text                  |yes     |string                       |
 |date        |The date                        |yes     |string (format: 'DD-MM-YYYY')|
 |id          |An id for the field             |no      |any                          |
-|iconClass   |An clas of an icon for this day |no      |string                       |
+|iconClass   |An class of an icon for this day|no      |string                       |
 |customClass |An class for this day           |no      |string                       |
 ### iconClass
 * The class passed will be the box icon
