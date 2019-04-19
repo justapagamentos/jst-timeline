@@ -72,6 +72,20 @@ $('#timeline').goToDate('03/11/1990');
 ```
 * This date has to be loaded
 * The date that's searched is the formated date on screen
+## Wanna add an event? Sure!
+Just use jquery events
+```javascript
+$('#timeline').find('.father-box .data-box .data').click(e => {
+  console.log(e)
+})
+// Multiple events
+  $('#timeline').find('.father-box .data-box .data').on({
+    mouseover: e => {
+      console.log(e)
+    }, click: e => {
+      console.log(e)
+    }})
+```
 ## Finish events when it won't be used
 It's always a good practice to finish the events when it'll not be used anymore
 ```javascript
@@ -94,7 +108,6 @@ $(#timeline).turnOffEvents();
 |--------------|-----------------------------|:------:|:-----------:|:-----------:|
 |showEmptyDates|Shows dates without data     |no      |boolean      |null         |
 |iconClasses   |The classes of icons         |no      |string       |null         |
-|daysClicked   |Add an event for days clicked|no      |Event => void|null         |
 ### iconClasses
 * The key will apply the icon to the iconId's that equals
 * If there's an **iconClass** in the box, the **iconClass** will be prioritized

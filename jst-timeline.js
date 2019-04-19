@@ -1,14 +1,13 @@
 /**
  * @description Load calendar with provided data
  * @param {label: string, date: string, id: any, iconClass: string, customClass: string} data
- * @param {showEmptyDates: boolean, iconClasses: any, daysClicked: (e) => void} options
+ * @param {showEmptyDates: boolean, iconClasses: any} options
  */
 $.fn.loadTimeline = function(data, options) {
-  const { showEmptyDates, iconClasses, daysClicked } = options;
+  const { showEmptyDates, iconClasses } = options;
 
   const dataToOrder = data;
   let orderedData = [];
-  let monthsAndYears = [];
   let arr = [];
 
   if (showEmptyDates) {
@@ -32,72 +31,14 @@ $.fn.loadTimeline = function(data, options) {
     });
   }
 
-  /**
-   * @description Sort an array from date with simple sort
-   * @param {any[]} array
-   */
-  function sortData(array) {
-    if (!array.length) return;
-    let alignElem = array[0];
-    const momentElem = moment(alignElem.date, "DD-MM-YYYY");
-    array.forEach(compareElem => {
-      const momentCompareElem = moment(compareElem.date, "DD-MM-YYYY");
-      if (momentElem.isAfter(momentCompareElem)) alignElem = compareElem;
-    });
-
-    // Edit the data and put in an ordered array
-    alignElem.date = toBrasilianDate(alignElem.date);
-    // Check if there's a specific icon to the data or search for a icon if not
-    if (iconClasses) {
-      alignElem.iconClass = alignElem.iconClass
-        ? alignElem.iconClass
-        : getIcon(alignElem.iconId);
-    }
-
-    if (showEmptyDates) {
-      const find = orderedData.findIndex(elem => elem.date === alignElem.date);
-      orderedData[find] = alignElem;
-    } else orderedData.push(alignElem);
-
-    // Removendo item já filtrado do array
-    const elemIndex = array.findIndex(elem => elem.date === alignElem.date);
-    array.splice(elemIndex, 1);
-
-    // Salva os meses e anos com dados
-    const momentAlignData = moment(alignElem.date, "DD/MM/YYYY").date(1);
-    if (
-      !monthsAndYears.some(monthAndYear => monthAndYear.isSame(momentAlignData))
-    )
-      monthsAndYears.push(momentAlignData);
-
-    // callback with the array
-    sortData(array);
-  }
-  sortData(dataToOrder);
-
-  /**
-   * @description Change the current date to brasilian format
-   * @param {string} date
-   */
-  function toBrasilianDate(date) {
-    return moment(date, "DD-MM-YYYY").format("DD/MM/YYYY");
-  }
-
-  /**
-   * @description Get correspondent icon to an item
-   * @param {string} label
-   * @returns class of icon
-   */
-  function getIcon(iconId) {
-    return iconClasses[iconId];
-  }
+  orderedData = showEmptyDates ? getDate(data) : quickSort(data);
 
   // Clears the box before add another
   $(this).empty();
 
   $(this).attr("class", "timeline-box");
 
-  $(".timeline-box").append(
+  $(this).append(
     '<div class="line-timeline"></div><ul class="father-box" style="transform: translateX(0px);"></ul>'
   );
 
@@ -106,7 +47,7 @@ $.fn.loadTimeline = function(data, options) {
     const { label, date, iconClass, customClass, id } = item;
 
     if (label) {
-      $(".timeline-box ul").append(`
+      $(this).find(".father-box").append(`
         <li class="data-box${customClass ? ` ${customClass}` : ""}" ${
         iconClass ? "" : 'style="margin-top: 15px;"'
       } ${id ? `id="${id}"` : ""}>
@@ -133,18 +74,12 @@ $.fn.loadTimeline = function(data, options) {
     }
   }
 
+  // Handle events
   $(this).turnoffEvents();
 
-  dragEvents(orderedData);
+  dragEvents(orderedData, this);
   if (showEmptyDates) {
-    showHideDatesOnHover();
-  }
-
-  // Adds click event on data-box
-  if (daysClicked) {
-    $(".data-box").click(e => {
-      daysClicked(e);
-    });
+    showHideDatesOnHover(this);
   }
 
   function isFirstDay(date) {
@@ -152,12 +87,93 @@ $.fn.loadTimeline = function(data, options) {
     return momentDate.date() === 1;
   }
 
+  /**
+   * @description Order array with an quicksort
+   * @param {any[]} array
+   */
+  function quickSort(array) {
+    let smaller = [];
+    let larger = [];
+    if (array.length <= 1) return array;
+
+    // Edit the data and put in an ordered array
+    array[0].date = toBrasilianDate(array[0].date);
+    // Check if there's a specific icon to the data or search for a icon if not
+    if (iconClasses) {
+      array[0].iconClass = array[0].iconClass
+        ? array[0].iconClass
+        : getIcon(array[0].iconId);
+    }
+    const momentDate1 = moment(array[0].date, "DD-MM-YYYY");
+    for (let i = 1; i < array.length; i++) {
+      const momentDate2 = moment(array[i].date, "DD-MM-YYYY");
+      // Edit the data and put in an ordered array
+      array[i].date = toBrasilianDate(array[i].date);
+      // Check if there's a specific icon to the data or search for a icon if not
+      if (iconClasses) {
+        array[i].iconClass = array[i].iconClass
+          ? array[i].iconClass
+          : getIcon(array[i].iconId);
+      }
+      if (momentDate2.isAfter(momentDate1)) {
+        larger.push(array[i]);
+      }
+      if (momentDate2.isSameOrBefore(momentDate1)) {
+        smaller.push(array[i]);
+      }
+    }
+    return quickSort(smaller).concat(array[0], quickSort(larger));
+  }
+
+  /**
+   * @description get date array if this is to show emptyDates
+   * @param {any[]} array
+   */
+  function getDate(array) {
+    array.forEach(elem => {
+      const find = orderedData.findIndex(searchElem => {
+        const momentDate = moment(elem.date, "DD-MM-YYYY");
+        const formatedDate = momentDate.format("DD/MM/YYYY");
+        return searchElem.date === formatedDate;
+      });
+      orderedData[find].label = elem.label;
+      orderedData[find].id = elem.id;
+      orderedData[find].iconId = elem.iconId;
+      // Edit the data and put in an ordered array
+      orderedData[find].date = toBrasilianDate(orderedData[find].date);
+      // Check if there's a specific icon to the data or search for a icon if not
+      if (iconClasses) {
+        orderedData[find].iconClass = orderedData[find].iconClass
+          ? orderedData[find].iconClass
+          : getIcon(orderedData[find].iconId);
+      }
+    });
+    return orderedData;
+  }
+
+  /**
+   * @description Change the current date to brasilian format
+   * @param {string} date
+   */
+  function toBrasilianDate(date) {
+    return moment(date, "DD-MM-YYYY").format("DD/MM/YYYY");
+  }
+
+  /**
+   * @description Get correspondent icon to an item
+   * @param {string} label
+   * @returns class of icon
+   */
+  function getIcon(iconId) {
+    return iconClasses[iconId];
+  }
+
   /** @description Start Drag events */
-  function dragEvents(orderedData) {
+  function dragEvents(orderedData, context) {
     // Total width of scroll box
     let contentWidth = 0;
     orderedData.forEach((_, i) => {
-      const width = $(".father-box li").get(i).scrollWidth - 28;
+      const width = context.find(".father-box li").get(i).scrollWidth;
       contentWidth += width;
     });
 
@@ -167,10 +183,10 @@ $.fn.loadTimeline = function(data, options) {
     /**@type {number} */
     let lastX = 0;
 
-    $(".timeline-box").on({
+    context.on({
       mousemove: e => {
         if (canDrag) {
-          const style = $(".father-box").attr("style");
+          const style = context.find(".father-box").attr("style");
           const actualPositionX = Number(style.replace(/\D/g, ""));
 
           if (!lastX) lastX = e.pageX;
@@ -183,10 +199,9 @@ $.fn.loadTimeline = function(data, options) {
           if (actualPositionX + movedValue >= contentWidth)
             finalPositionX = contentWidth;
 
-          $(".father-box").attr(
-            "style",
-            `transform: translate(-${finalPositionX}px)`
-          );
+          context
+            .find(".father-box")
+            .attr("style", `transform: translate(-${finalPositionX}px)`);
         }
       },
       mousedown: e => {
@@ -205,13 +220,13 @@ $.fn.loadTimeline = function(data, options) {
   }
 
   /** @description Start show and hide data animation events */
-  function showHideDatesOnHover() {
-    $(".empty-day-box").mouseover(function() {
+  function showHideDatesOnHover(context) {
+    context.find(".empty-day-box").mouseover(function() {
       $(this)
         .find(".date")
         .attr("class", "date show-date");
     });
-    $(".empty-day-box").mouseleave(function() {
+    context.find(".empty-day-box").mouseleave(function() {
       $(this)
         .find(".date")
         .attr("class", "date hide-date");
@@ -224,10 +239,6 @@ $.fn.turnoffEvents = function() {
   $(this).off();
 };
 
-/**
- * @description Go to a specific date that's loaded
- * @param {string} date
- */
 $.fn.goToDate = function(date) {
   let widthUntilDate = 0;
   $(this)
