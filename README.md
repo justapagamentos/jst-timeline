@@ -2,7 +2,6 @@
 
 A smooth timeline<br />
 [Live Demo](https://codesandbox.io/s/xpxw6k7okw)
-<a hreft="https://codesandbox.io/s/xpxw6k7okw" target="_blank" title="demo">Live Demo</a>
 
 ## Usage
 1. Add the librarys used
