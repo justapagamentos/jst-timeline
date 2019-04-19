@@ -1,6 +1,7 @@
 # jst-timeline 1.0.0
 
 A smooth timeline<br />
+[Live Demo](https://codesandbox.io/s/xpxw6k7okw)
 <a hreft="https://codesandbox.io/s/xpxw6k7okw" target="_blank" title="demo">Live Demo</a>
 
 ## Usage
