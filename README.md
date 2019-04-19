@@ -11,14 +11,14 @@ A smooth timeline
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script>
 ```
-2. Import the jst-timeline and the style
-cdn
+2. Import the jst-timeline and the style cdn
 ```html
 <link rel="stylesheet" href="src/styles.css">
 <script type="text/javascript" src="src/index.js"></script>
 ```
 3. Now you can simply use calling:
-index.js:
+
+> index.js:
 ```javascript
 const data = [
   { label: "Em estoque (Recife)", date: "10-04-1995", iconId: 0 },
@@ -43,7 +43,7 @@ const options = {
 
 $("#timeline").loadTimeline(data, options);
 ```
-index.html:
+> index.html:
 ```html
 <div id="timeline"><div>
 ```
@@ -79,12 +79,13 @@ $('#timeline').find('.father-box .data-box .data').click(e => {
   console.log(e)
 })
 // Multiple events
-  $('#timeline').find('.father-box .data-box .data').on({
-    mouseover: e => {
-      console.log(e)
-    }, click: e => {
-      console.log(e)
-    }})
+$('#timeline').find('.father-box .data-box .data').on({
+  mouseover: e => {
+    console.log(e)
+  }, 
+  click: e => {
+    console.log(e)
+}})
 ```
 ## Finish events when it won't be used
 It's always a good practice to finish the events when it'll not be used anymore
@@ -96,7 +97,7 @@ $(#timeline).turnOffEvents();
 |key         |Description                     |Required|Type                         |
 |------------|--------------------------------|:------:|:---------------------------:|
 |label       |The inner text                  |yes     |string                       |
-|date        |The date                        |yes     |string (format: 'DD/MM/YYYY')|
+|date        |The date                        |yes     |string (format: 'YYYY-MM-DD')|
 |id          |An id for the field             |no      |any                          |
 |iconClass   |An clas of an icon for this day |no      |string                       |
 |customClass |An class for this day           |no      |string                       |
@@ -114,4 +115,5 @@ $(#timeline).turnOffEvents();
 
 ## Icons
 To show an icon, it's simple!
-Just import an icon library (like fontawesome) and the iconClass or one of the iconClasses will be put in the class property to show the icon!
+
+Just import an icon library (like fontawesome) and the iconClass or one of the iconClasses that you set will be put in the class property to show the icon!
