@@ -91,7 +91,7 @@ $('#timeline').find('.father-box .data-box .data').on({
 It's always a good practice to finish the events when it'll not be used anymore
 ```javascript
 // Just call
-$(#timeline).turnOffEvents();
+$('#timeline').turnOffEvents();
 ```
 ## data
 |key         |Description                     |Required|Type                         |
