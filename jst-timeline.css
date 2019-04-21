@@ -1,110 +1,109 @@
 .timeline-box {
-    overflow-y: hidden;
-    overflow-x: scroll;
-    position: relative;
-    max-width: 100%;
-    cursor: grab;
-    -webkit-user-select: none; /* Chrome all / Safari all */
-    -moz-user-select: none; /* Firefox all */
-    -ms-user-select: none;
-    user-select: none;
-    overflow: -moz-scrollbars-none;
-    -ms-overflow-style: none;
-  }
-  
-  .timeline-box::-webkit-scrollbar {
-    width: 0 !important;
-  }
-  
-  .timeline-box .line-timeline {
-    position: absolute;
-    top: 100px;
-    height: 1px;
-    width: 97.5%;
-    background-color: #aaa;
-    z-index: -1;
-  }
-  
-  .timeline-box .father-box {
-    position: relative;
-    box-sizing: content-box;
-    display: flex;
-    flex-wrap: nowrap;
-    padding-left: 15px;
-  }
-  
-  .timeline-box .father-box .data-box {
-    display: inline-block;
-    text-align: center;
-    position: relative;
-    white-space: nowrap;
-    margin-right: 20px;
-  }
-  
-  .timeline-box .father-box .data-box .data {
-    display: block;
-    font-family: "Exo 2", "Regular";
-    padding: 8px;
-    font-size: 12px;
-    color: #fff;
-    background-color: #076e95;
-  }
-  
-  .timeline-box .father-box .data-box .vertical-line {
-    width: 1px;
-    background-color: #aaa;
-    height: 34px;
-    margin: 0 auto;
-  }
-  
-  .timeline-box .father-box .data-box .ball {
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 8px;
-    height: 8px;
-    border: 2px solid #076e95;
-    background-color: #fff;
-    border-radius: 50%;
-  }
-  
-  .timeline-box .father-box .empty-day-box {
-    position: relative;
-    display: inline-block;
-    min-width: 30px;
-    width: 30px;
-  }
-  
-  .timeline-box .father-box .empty-day-box .empty-day {
-    position: absolute;
-    bottom: 35px;
-    width: 1px;
-    height: 20px;
-    left: 50%;
-    background-color: #aaa;
-  }
-  
-  .timeline-box .father-box .empty-day-box .empty-first-day {
-    bottom: 30px;
-    height: 30px;
-  }
-  
-  .timeline-box .father-box .empty-day-box .date {
-    position: absolute;
-    color: #000;
-    bottom: 0px;
-    left: -15px;
-    transition: 0.5s;
-  }
-  
-  .timeline-box .father-box .empty-day-box .hide-date {
-    opacity: 0;
-    bottom: 40px;
-  }
-  
-  .timeline-box .father-box .empty-day-box .show-date {
-    opacity: 1;
-    bottom: 60px;
-  }
-  
+  overflow-y: hidden;
+  overflow-x: scroll;
+  position: relative;
+  width: 100%;
+  cursor: grab;
+  -webkit-user-select: none; /* Chrome all / Safari all */
+  -moz-user-select: none; /* Firefox all */
+  -ms-user-select: none;
+  user-select: none;
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+}
+
+.timeline-box::-webkit-scrollbar {
+  width: 0 !important;
+}
+
+.timeline-box .line-timeline {
+  position: absolute;
+  top: 100px;
+  height: 1px;
+  width: 100%;
+  background-color: #aaa;
+  z-index: -1;
+}
+
+.timeline-box .father-box {
+  position: relative;
+  box-sizing: content-box;
+  display: flex;
+  flex-wrap: nowrap;
+  padding-left: 15px;
+}
+
+.timeline-box .father-box .data-box {
+  display: inline-block;
+  text-align: center;
+  position: relative;
+  white-space: nowrap;
+  margin-right: 20px;
+}
+
+.timeline-box .father-box .data-box .data {
+  display: block;
+  font-family: "Exo 2", "Regular";
+  padding: 8px;
+  font-size: 12px;
+  color: #fff;
+  background-color: #076e95;
+}
+
+.timeline-box .father-box .data-box .vertical-line {
+  width: 1px;
+  background-color: #aaa;
+  height: 34px;
+  margin: 0 auto;
+}
+
+.timeline-box .father-box .data-box .ball {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  border: 2px solid #076e95;
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+.timeline-box .father-box .empty-day-box {
+  position: relative;
+  display: inline-block;
+  min-width: 30px;
+  width: 30px;
+}
+
+.timeline-box .father-box .empty-day-box .empty-day {
+  position: absolute;
+  bottom: 35px;
+  width: 1px;
+  height: 20px;
+  left: 50%;
+  background-color: #aaa;
+}
+
+.timeline-box .father-box .empty-day-box .empty-first-day {
+  bottom: 30px;
+  height: 30px;
+}
+
+.timeline-box .father-box .empty-day-box .date {
+  position: absolute;
+  color: #000;
+  bottom: 0px;
+  left: -15px;
+  transition: 0.5s;
+}
+
+.timeline-box .father-box .empty-day-box .hide-date {
+  opacity: 0;
+  bottom: 40px;
+}
+
+.timeline-box .father-box .empty-day-box .show-date {
+  opacity: 1;
+  bottom: 60px;
+}

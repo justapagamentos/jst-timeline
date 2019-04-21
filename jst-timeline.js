@@ -173,10 +173,10 @@ $.fn.loadTimeline = function(data, options) {
   /** @description Start Drag events */
   function dragEvents(orderedData, context) {
     // Total width of scroll box
-    let contentWidth = 0;
+    let scrollContentWidth = 0;
     orderedData.forEach((_, i) => {
       const width = context.find(".father-box li").get(i).scrollWidth;
-      contentWidth += width;
+      scrollContentWidth += width;
     });
 
     // handlers of events
@@ -188,6 +188,11 @@ $.fn.loadTimeline = function(data, options) {
     context.on({
       mousemove: e => {
         if (canDrag) {
+          // get actual width of the box if it's resized and decrement in the max drag width 
+          const canMove =
+            scrollContentWidth - Math.floor($(context).width() * 0.65);
+          const maxDragWidth = canMove >= 0 ? canMove : 0;
+
           const style = context.find(".father-box").attr("style");
           const actualPositionX = Number(style.replace(/\D/g, ""));
 
@@ -198,8 +203,7 @@ $.fn.loadTimeline = function(data, options) {
           lastX = e.pageX;
 
           if (actualPositionX + movedValue <= 0) finalPositionX = 0;
-          if (actualPositionX + movedValue >= contentWidth)
-            finalPositionX = contentWidth;
+          if (actualPositionX + movedValue >= maxDragWidth) finalPositionX = maxDragWidth;
 
           context
             .find(".father-box")
