@@ -1,7 +1,7 @@
 # jst-timeline 1.0.0
 
-A smooth timeline
-<a hreft="https://codesandbox.io/s/xpxw6k7okw" target="_blank" title="demo">Live Demo</a>
+A smooth timeline<br />
+[Live Demo](https://codesandbox.io/s/xpxw6k7okw)
 
 ## Usage
 1. Add the librarys used
@@ -99,7 +99,7 @@ $(#timeline).turnOffEvents();
 |label       |The inner text                  |yes     |string                       |
 |date        |The date                        |yes     |string (format: 'DD-MM-YYYY')|
 |id          |An id for the field             |no      |any                          |
-|iconClass   |An clas of an icon for this day |no      |string                       |
+|iconClass   |An class of an icon for this day|no      |string                       |
 |customClass |An class for this day           |no      |string                       |
 ### iconClass
 * The class passed will be the box icon
