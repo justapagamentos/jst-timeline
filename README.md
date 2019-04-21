@@ -11,7 +11,7 @@ A smooth timeline<br />
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script>
 ```
-2. Import the jst-timeline and the style cdn
+2. Import the js and the style cdn
 ```html
 <link rel="stylesheet" href="src/styles.css">
 <script type="text/javascript" src="src/index.js"></script>
