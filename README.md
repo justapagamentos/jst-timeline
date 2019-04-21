@@ -64,7 +64,7 @@ const options2 = {
   }
 };
 
-$(#timeline).loadTimeline(data2, options2);
+$('#timeline').loadTimeline(data2, options2);
 ```
 ## Wanna go to a specific date? No problem!
 ```javascript
