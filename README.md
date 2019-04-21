@@ -94,13 +94,14 @@ It's always a good practice to finish the events when it'll not be used anymore
 $('#timeline').turnOffEvents();
 ```
 ## data
-|key         |Description                     |Required|Type                         |
-|------------|--------------------------------|:------:|:---------------------------:|
-|label       |The inner text                  |yes     |string                       |
-|date        |The date                        |yes     |string (format: 'DD-MM-YYYY')|
-|id          |An id for the field             |no      |any                          |
-|iconClass   |An class of an icon for this day|no      |string                       |
-|customClass |An class for this day           |no      |string                       |
+|key         |Description                         |Required|Type                         |
+|------------|------------------------------------|:------:|:---------------------------:|
+|label       |The inner text                      |yes     |string                       |
+|date        |The date                            |yes     |string (format: 'DD-MM-YYYY')|
+|id          |An id for the field                 |no      |string                       |
+|iconId      |Links icon to the key of iconClasses|no      |string | number              |
+|iconClass   |An class of an icon for this day    |no      |string                       |
+|customClass |An class for this day               |no      |string                       |
 ### iconClass
 * The class passed will be the box icon
 * If there's an **iconClass** in the box, the **iconClass** will be prioritized over the **iconClasses**
