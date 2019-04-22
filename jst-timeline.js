@@ -31,7 +31,18 @@ $.fn.loadTimeline = function(data, options) {
     });
   }
 
-  orderedData = showEmptyDates ? getDate(data) : quickSort(data);
+  if (dataToOrder.length > 1)
+    orderedData = showEmptyDates ? getDate(data) : quickSort(data);
+  else {
+    orderedData = dataToOrder;
+    orderedData[0].date = toBrasilianDate(orderedData[0].date);
+    // Check if there's a specific icon to the data or search for a icon if not
+    if (iconClasses) {
+      orderedData[0].iconClass = orderedData[0].iconClass
+        ? orderedData[0].iconClass
+        : getIcon(orderedData[0].iconId);
+    }
+  }
 
   // Clears the box before add another
   $(this).empty();
@@ -138,9 +149,7 @@ $.fn.loadTimeline = function(data, options) {
         const formatedDate = momentDate.format("DD/MM/YYYY");
         return searchElem.date === formatedDate;
       });
-      orderedData[find].label = elem.label;
-      orderedData[find].id = elem.id;
-      orderedData[find].iconId = elem.iconId;
+      orderedData[find] = elem.label;
       // Edit the data and put in an ordered array
       orderedData[find].date = toBrasilianDate(orderedData[find].date);
       // Check if there's a specific icon to the data or search for a icon if not
@@ -246,6 +255,10 @@ $.fn.turnoffEvents = function() {
   $(this).off();
 };
 
+/**
+ * @description Go to a especific date (the date that's loaded)
+ * @param {string} date
+ */
 $.fn.goToDate = function(date) {
   let widthUntilDate = 0;
   $(this)
