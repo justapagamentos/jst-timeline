@@ -4,7 +4,7 @@
   "description": "Pretty flexible timeline",
   "main": "jst-timeline.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": ""
   },
   "repository": {
     "type": "git",
@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/justapagamentos/jst-timeline/issues"
   },
-  "homepage": "https://github.com/justapagamentos/jst-timeline#readme"
+  "homepage": "https://github.com/justapagamentos/jst-timeline#readme",
+  "peerDependencies": {
+    "jquery": "^1.7 || ^2.0 || ^3.1"
+  }
 }
