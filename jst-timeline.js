@@ -11,7 +11,7 @@ $.fn.loadTimeline = function(data, options) {
   let arr = [];
 
   if (showEmptyDates) {
-    // Verify wich months and years hava data
+    // Verify wich months and years have data
     dataToOrder.forEach(elem => {
       const monthAndYear = moment(elem.date, "DD/MM/YYYY").format("MM/YYYY");
       if (!arr.some(elem => monthAndYear === elem)) arr.push(monthAndYear);
@@ -188,7 +188,7 @@ $.fn.loadTimeline = function(data, options) {
     context.on({
       mousemove: e => {
         if (canDrag) {
-          // get actual width of the box if it's resized and decrement in the max drag width 
+          // get actual width of the box if it's resized and decrement in the max drag width
           const canMove =
             scrollContentWidth - Math.floor($(context).width() * 0.65);
           const maxDragWidth = canMove >= 0 ? canMove : 0;
@@ -203,7 +203,8 @@ $.fn.loadTimeline = function(data, options) {
           lastX = e.pageX;
 
           if (actualPositionX + movedValue <= 0) finalPositionX = 0;
-          if (actualPositionX + movedValue >= maxDragWidth) finalPositionX = maxDragWidth;
+          if (actualPositionX + movedValue >= maxDragWidth)
+            finalPositionX = maxDragWidth;
 
           context
             .find(".father-box")

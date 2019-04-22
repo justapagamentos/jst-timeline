@@ -1,0 +1,25 @@
+{
+  "name": "jst-timeline",
+  "version": "1.0.0",
+  "description": "Pretty flexible timeline",
+  "main": "jst-timeline.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justapagamentos/jst-timeline.git"
+  },
+  "keywords": [
+    "jquery",
+    "jquery-plugin",
+    "timeline-component",
+    "timeline"
+  ],
+  "author": "Valdery Alves Paes Junior <valdery.jur@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/justapagamentos/jst-timeline/issues"
+  },
+  "homepage": "https://github.com/justapagamentos/jst-timeline#readme"
+}
