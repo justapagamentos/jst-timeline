@@ -1,5 +1,5 @@
 {
-  "name": "jst-timeline",
+  "name": "@justa/jst-timeline",
   "version": "1.0.0",
   "description": "Pretty flexible timeline",
   "main": "jst-timeline.js",
@@ -24,5 +24,8 @@
   "homepage": "https://github.com/justapagamentos/jst-timeline#readme",
   "peerDependencies": {
     "jquery": "^1.7 || ^2.0 || ^3.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
