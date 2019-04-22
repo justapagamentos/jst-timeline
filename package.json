@@ -1,6 +1,6 @@
 {
   "name": "@justa/jst-timeline",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Pretty flexible timeline",
   "main": "jst-timeline.js",
   "scripts": {

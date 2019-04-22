@@ -1,4 +1,4 @@
-# jst-timeline 1.0.0
+# JST timeline
 
 A smooth timeline<br />
 [Live Demo](https://codesandbox.io/s/xpxw6k7okw)
