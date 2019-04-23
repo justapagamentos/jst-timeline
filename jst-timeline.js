@@ -1,7 +1,7 @@
 /**
  * @description Load calendar with provided data
  * @param {label: string, date: string, id: any, iconClass: string, customClass: string} data
- * @param {showEmptyDates: boolean, iconClasses: any, momentFormat: string, dataShowFormat: string} options
+ * @param {showEmptyDates: boolean, iconClasses: any} options
  */
 $.fn.loadTimeline = function(data, options) {
   const { showEmptyDates, iconClasses } = options;
@@ -46,6 +46,12 @@ $.fn.loadTimeline = function(data, options) {
         : getIcon(orderedData[0].iconId);
     }
   }
+
+  orderedData.forEach(elem => {
+    elem.date = toBrasilianDate(elem.date);
+    if (iconClasses)
+      elem.iconClass = elem.iconClass ? elem.iconClass : getIcon(elem.iconId);
+  });
 
   // Clears the box before add another
   $(this).empty();
@@ -112,25 +118,9 @@ $.fn.loadTimeline = function(data, options) {
     let larger = [];
     if (array.length <= 1) return array;
 
-    // Edit the data and put in an ordered array
-    array[0].date = toBrasilianDate(array[0].date);
-    // Check if there's a specific icon to the data or search for a icon if not
-    if (iconClasses) {
-      array[0].iconClass = array[0].iconClass
-        ? array[0].iconClass
-        : getIcon(array[0].iconId);
-    }
     const momentDate1 = moment(array[0].date, momentFormat);
     for (let i = 1; i < array.length; i++) {
       const momentDate2 = moment(array[i].date, momentFormat);
-      // Edit the data and put in an ordered array
-      array[i].date = toBrasilianDate(array[i].date);
-      // Check if there's a specific icon to the data or search for a icon if not
-      if (iconClasses) {
-        array[i].iconClass = array[i].iconClass
-          ? array[i].iconClass
-          : getIcon(array[i].iconId);
-      }
       if (momentDate2.isAfter(momentDate1)) {
         larger.push(array[i]);
       }
