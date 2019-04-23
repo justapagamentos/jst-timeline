@@ -34,9 +34,15 @@ $.fn.loadTimeline = function(data, options) {
     });
   }
 
-  if (dataToOrder.length > 1)
+  if (dataToOrder.length > 1) {
     orderedData = showEmptyDates ? getDate(data) : quickSort(data);
-  else {
+
+    orderedData.forEach(elem => {
+      elem.date = toBrasilianDate(elem.date);
+      if (iconClasses)
+        elem.iconClass = elem.iconClass ? elem.iconClass : getIcon(elem.iconId);
+    });
+  } else {
     orderedData = dataToOrder;
     orderedData[0].date = toBrasilianDate(orderedData[0].date);
     // Check if there's a specific icon to the data or search for a icon if not
@@ -46,12 +52,6 @@ $.fn.loadTimeline = function(data, options) {
         : getIcon(orderedData[0].iconId);
     }
   }
-
-  orderedData.forEach(elem => {
-    elem.date = toBrasilianDate(elem.date);
-    if (iconClasses)
-      elem.iconClass = elem.iconClass ? elem.iconClass : getIcon(elem.iconId);
-  });
 
   // Clears the box before add another
   $(this).empty();
