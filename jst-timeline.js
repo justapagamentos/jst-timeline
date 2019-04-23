@@ -1,10 +1,13 @@
 /**
  * @description Load calendar with provided data
  * @param {label: string, date: string, id: any, iconClass: string, customClass: string} data
- * @param {showEmptyDates: boolean, iconClasses: any} options
+ * @param {showEmptyDates: boolean, iconClasses: any, momentFormat: string, dataShowFormat: string} options
  */
 $.fn.loadTimeline = function(data, options) {
   const { showEmptyDates, iconClasses } = options;
+  let { momentFormat, dataShowFormat } = options;
+  momentFormat = momentFormat ? momentFormat : "DD/MM/YYYY";
+  dataShowFormat = dataShowFormat ? dataShowFormat : "DD/MM/YYYY";
 
   const dataToOrder = data;
   let orderedData = [];
@@ -13,17 +16,17 @@ $.fn.loadTimeline = function(data, options) {
   if (showEmptyDates) {
     // Verify wich months and years have data
     dataToOrder.forEach(elem => {
-      const monthAndYear = moment(elem.date, "DD/MM/YYYY").format("MM/YYYY");
+      const monthAndYear = moment(elem.date, momentFormat).format("MM/YYYY");
       if (!arr.some(elem => monthAndYear === elem)) arr.push(monthAndYear);
     });
 
     // Add everydays of months and years with data
     arr.forEach(monthAndYear => {
-      const momentD = moment(`01/${monthAndYear}`, "DD/MM/YYYY");
+      const momentD = moment(`01/${monthAndYear}`, momentFormat);
       const days = momentD.daysInMonth();
       let day = 1;
       Array.from({ length: days }, () => {
-        const rightDate = momentD.format("DD/MM/YYYY");
+        const rightDate = momentD.format(dataShowFormat);
         orderedData.push({ date: rightDate });
         day++;
         momentD.date(day);
@@ -61,8 +64,8 @@ $.fn.loadTimeline = function(data, options) {
       $(this).find(".father-box").append(`
         <li class="data-box${customClass ? ` ${customClass}` : ""}" ${
         iconClass ? "" : 'style="margin-top: 15px;"'
-      } ${id ? `id="${id}"` : ""}>
-          <span class="data">
+      }${id ? ` id="${id}"` : ""}>
+          <span class="data"${id ? ` id="${id}"` : ""}>
           ${
             iconClass
               ? `<span class="${iconClass}" aria-hidden="true"></span><br />`
@@ -96,7 +99,7 @@ $.fn.loadTimeline = function(data, options) {
   }
 
   function isFirstDay(date) {
-    const momentDate = moment(date, "DD/MM/YYYY");
+    const momentDate = moment(date, momentFormat);
     return momentDate.date() === 1;
   }
 
@@ -117,9 +120,9 @@ $.fn.loadTimeline = function(data, options) {
         ? array[0].iconClass
         : getIcon(array[0].iconId);
     }
-    const momentDate1 = moment(array[0].date, "DD-MM-YYYY");
+    const momentDate1 = moment(array[0].date, momentFormat);
     for (let i = 1; i < array.length; i++) {
-      const momentDate2 = moment(array[i].date, "DD-MM-YYYY");
+      const momentDate2 = moment(array[i].date, momentFormat);
       // Edit the data and put in an ordered array
       array[i].date = toBrasilianDate(array[i].date);
       // Check if there's a specific icon to the data or search for a icon if not
@@ -145,11 +148,11 @@ $.fn.loadTimeline = function(data, options) {
   function getDate(array) {
     array.forEach(elem => {
       const find = orderedData.findIndex(searchElem => {
-        const momentDate = moment(elem.date, "DD-MM-YYYY");
-        const formatedDate = momentDate.format("DD/MM/YYYY");
+        const momentDate = moment(elem.date, momentFormat);
+        const formatedDate = momentDate.format(dataShowFormat);
         return searchElem.date === formatedDate;
       });
-      orderedData[find] = elem.label;
+      orderedData[find].label = elem.label;
       // Edit the data and put in an ordered array
       orderedData[find].date = toBrasilianDate(orderedData[find].date);
       // Check if there's a specific icon to the data or search for a icon if not
@@ -167,7 +170,7 @@ $.fn.loadTimeline = function(data, options) {
    * @param {string} date
    */
   function toBrasilianDate(date) {
-    return moment(date, "DD-MM-YYYY").format("DD/MM/YYYY");
+    return moment(date, momentFormat).format(dataShowFormat);
   }
 
   /**
@@ -255,10 +258,6 @@ $.fn.turnoffEvents = function() {
   $(this).off();
 };
 
-/**
- * @description Go to a especific date (the date that's loaded)
- * @param {string} date
- */
 $.fn.goToDate = function(date) {
   let widthUntilDate = 0;
   $(this)

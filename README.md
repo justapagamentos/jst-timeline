@@ -26,11 +26,11 @@ A smooth timeline<br />
 ```html
 <link
   rel="stylesheet"
-  href="https://unpkg.com/@justa/jst-timeline@1.0.21/jst-timeline.css"
+  href="https://unpkg.com/@justa/jst-timeline@1.0.22/jst-timeline.css"
 />
 <script
   type="text/javascript"
-  src="https://unpkg.com/@justa/jst-timeline@1.0.21/jst-timeline.js"
+  src="https://unpkg.com/@justa/jst-timeline@1.0.22/jst-timeline.js"
 ></script>
 ```
 
@@ -136,9 +136,9 @@ $("#timeline").turnOffEvents();
 | key         | Description                          | Required |             Type              |
 | ----------- | ------------------------------------ | :------: | :---------------------------: |
 | label       | The inner text                       |   yes    |            string             |
-| date        | The date                             |   yes    | string (format: 'DD-MM-YYYY') |
+| date        | The date                             |   yes    | string (format: 'DD/MM/YYYY') |
 | id          | An id for the field                  |    no    |            string             |
-| iconId      | Links icon to the key of iconClasses |    no    |            string             | number |
+| iconId      | Links icon to the key of iconClasses |    no    |            string             |
 | iconClass   | An class of an icon for this day     |    no    |            string             |
 | customClass | An class for this day                |    no    |            string             |
 
@@ -153,6 +153,8 @@ $("#timeline").turnOffEvents();
 | -------------- | ------------------------ | :------: | :-----: | :-----------: |
 | showEmptyDates | Shows dates without data |    no    | boolean |     null      |
 | iconClasses    | The classes of icons     |    no    | string  |     null      |
+| momentFormat   | Date format for moment   |    no    | string  | 'DD/MM/YYYY'  |
+| dataShowFormat | Format on screen         |    no    | string  | 'DD/MM/YYYY'  |
 
 ### iconClasses
 
