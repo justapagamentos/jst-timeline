@@ -34,7 +34,6 @@ $.fn.loadTimeline = function(data, options) {
     });
   }
 
-  debugger;
   if (dataToOrder.length > 1) {
     orderedData = showEmptyDates ? getDate(data) : quickSort(data);
 
