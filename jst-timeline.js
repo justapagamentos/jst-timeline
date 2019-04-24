@@ -1,7 +1,7 @@
 /**
  * @description Load calendar with provided data
- * @param {label: string, date: string, id: any, iconClass: string, customClass: string} data
- * @param {showEmptyDates: boolean, iconClasses: any} options
+ * @param {{label: string, date: string, id: any, iconClass: string, customClass: string}[]} data
+ * @param {showEmptyDates: boolean, iconClasses: any, momentFormat: string, dataShowFormat: string} options
  */
 $.fn.loadTimeline = function(data, options) {
   const { showEmptyDates, iconClasses } = options;
@@ -22,7 +22,7 @@ $.fn.loadTimeline = function(data, options) {
 
     // Add everydays of months and years with data
     arr.forEach(monthAndYear => {
-      const momentD = moment(`01/${monthAndYear}`, momentFormat);
+      const momentD = moment(`01/${monthAndYear}`, "DD/MM/YYYY");
       const days = momentD.daysInMonth();
       let day = 1;
       Array.from({ length: days }, () => {
@@ -34,13 +34,18 @@ $.fn.loadTimeline = function(data, options) {
     });
   }
 
+  debugger;
   if (dataToOrder.length > 1) {
     orderedData = showEmptyDates ? getDate(data) : quickSort(data);
 
     orderedData.forEach(elem => {
-      elem.date = toBrasilianDate(elem.date);
-      if (iconClasses)
-        elem.iconClass = elem.iconClass ? elem.iconClass : getIcon(elem.iconId);
+      if (elem.label) {
+        elem.date = toBrasilianDate(elem.date);
+        if (iconClasses)
+          elem.iconClass = elem.iconClass
+            ? elem.iconClass
+            : getIcon(elem.iconId);
+      }
     });
   } else {
     orderedData = dataToOrder;
@@ -142,15 +147,7 @@ $.fn.loadTimeline = function(data, options) {
         const formatedDate = momentDate.format(dataShowFormat);
         return searchElem.date === formatedDate;
       });
-      orderedData[find].label = elem.label;
-      // Edit the data and put in an ordered array
-      orderedData[find].date = toBrasilianDate(orderedData[find].date);
-      // Check if there's a specific icon to the data or search for a icon if not
-      if (iconClasses) {
-        orderedData[find].iconClass = orderedData[find].iconClass
-          ? orderedData[find].iconClass
-          : getIcon(orderedData[find].iconId);
-      }
+      orderedData[find] = elem;
     });
     return orderedData;
   }
