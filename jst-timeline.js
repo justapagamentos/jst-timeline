@@ -34,7 +34,6 @@ $.fn.loadTimeline = function(data, options) {
     });
   }
 
-  debugger;
   if (dataToOrder.length > 1) {
     orderedData = showEmptyDates ? getDate(data) : quickSort(data);
 
@@ -260,7 +259,10 @@ $.fn.goToDate = function(date) {
       } else {
         $(this)
           .find(".father-box")
-          .attr("style", `transform: translate(-${widthUntilDate}px)`);
+          .attr(
+            "style",
+            `transition: transform 0.5s;transform: translate(-${widthUntilDate}px)`
+          );
         return;
       }
     });
