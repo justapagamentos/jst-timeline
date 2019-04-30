@@ -11,6 +11,7 @@
   user-select: none;
   overflow: -moz-scrollbars-none;
   -ms-overflow-style: none;
+  scrollbar-width: none; /* Firefox 64 */
 }
 
 .timeline-box::-webkit-scrollbar {
@@ -24,6 +25,12 @@
   width: 100%;
   background-color: #aaa;
   z-index: 0;
+}
+
+@-moz-document url-prefix() {
+  .timeline-box .line-timeline {
+    bottom: 49px;
+  }
 }
 
 .timeline-box .father-box {
