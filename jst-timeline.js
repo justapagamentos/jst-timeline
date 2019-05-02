@@ -6,7 +6,7 @@ let timelinesData = {};
  * @param {showEmptyDates: boolean, iconClasses: any, momentFormat: string, dataShowFormat: string} options
  */
 $.fn.loadTimeline = function(data, options) {
-  const { showEmptyDates, iconClasses } = options;
+  const { showEmptyDates, iconClasses, reverse } = options;
   let { momentFormat, dataShowFormat } = options;
   momentFormat = momentFormat ? momentFormat : "DD/MM/YYYY";
   dataShowFormat = dataShowFormat ? dataShowFormat : "DD/MM/YYYY";
@@ -37,7 +37,11 @@ $.fn.loadTimeline = function(data, options) {
   }
 
   if (dataToOrder.length > 1) {
-    orderedData = showEmptyDates ? getDate(data) : quickSort(data);
+    if (reverse)
+      orderedData = showEmptyDates
+        ? reverseGetDate(data)
+        : reverseQuickSort(data);
+    else orderedData = showEmptyDates ? getDate(data) : quickSort(data);
 
     orderedData.forEach(elem => {
       if (elem.label) {
@@ -141,6 +145,15 @@ $.fn.loadTimeline = function(data, options) {
   }
 
   /**
+   * @description Order array reverted with an quicksort
+   * @param {any[]} array
+   */
+  function reverseQuickSort(array) {
+    const arr = quickSort(array);
+    return arr.reverse();
+  }
+
+  /**
    * @description get date array if this is to show emptyDates
    * @param {any[]} array
    */
@@ -154,6 +167,15 @@ $.fn.loadTimeline = function(data, options) {
       orderedData[find] = elem;
     });
     return orderedData;
+  }
+
+  /**
+   * @description get date array if this is to show emptyDates and reverse the array
+   * @param {any[]} array
+   */
+  function reverseGetDate(array) {
+    const arr = getDate(array);
+    return arr.reverse();
   }
 
   /**

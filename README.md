@@ -26,11 +26,11 @@ A smooth timeline<br />
 ```html
 <link
   rel="stylesheet"
-  href="https://unpkg.com/@justa/jst-timeline@1.0.29/jst-timeline.css"
+  href="https://unpkg.com/@justa/jst-timeline@1.0.30/jst-timeline.css"
 />
 <script
   type="text/javascript"
-  src="https://unpkg.com/@justa/jst-timeline@1.0.29/jst-timeline.js"
+  src="https://unpkg.com/@justa/jst-timeline@1.0.30/jst-timeline.js"
 ></script>
 ```
 
@@ -140,11 +140,11 @@ $("#timeline").destroyTimeline();
 
 ## jquery functions
 
-|      Name       |          Description           |  Parameters   |
-| :-------------: | :----------------------------: | :-----------: |
-|  loadTimeline   |       Loads the timeline       | data, options |
-|    GoToDate     |        scroll to a date        |    string     |
-| destroyTimeline |     Destroys the timeline      |               |
+|      Name       | Description                    |  Parameters   |
+| :-------------: | ------------------------------ | :-----------: |
+|  loadTimeline   | Loads the timeline             | data, options |
+|    GoToDate     | scroll to a date               |    string     |
+| destroyTimeline | Destroys the timeline          |               |
 |  turnoffEvents  | Turnoff timeline jquery events |               |
 
 ## data
@@ -167,10 +167,11 @@ $("#timeline").destroyTimeline();
 
 | key            | Description              | Required |  Type   | Default value |
 | -------------- | ------------------------ | :------: | :-----: | :-----------: |
-| showEmptyDates | Shows dates without data |    no    | boolean |     null      |
 | iconClasses    | The classes of icons     |    no    | string  |     null      |
 | momentFormat   | Date format for moment   |    no    | string  | 'DD/MM/YYYY'  |
 | dataShowFormat | Format on screen         |    no    | string  | 'DD/MM/YYYY'  |
+| showEmptyDates | Shows dates without data |    no    | boolean |     false     |
+| reverse        | Reverses dates on screen |    no    | boolean |     false     |
 
 ### iconClasses
 
