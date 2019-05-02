@@ -26,11 +26,11 @@ A smooth timeline<br />
 ```html
 <link
   rel="stylesheet"
-  href="https://unpkg.com/@justa/jst-timeline@1.0.30/jst-timeline.css"
+  href="https://unpkg.com/@justa/jst-timeline@1.0.31/jst-timeline.css"
 />
 <script
   type="text/javascript"
-  src="https://unpkg.com/@justa/jst-timeline@1.0.30/jst-timeline.js"
+  src="https://unpkg.com/@justa/jst-timeline@1.0.31/jst-timeline.js"
 ></script>
 ```
 

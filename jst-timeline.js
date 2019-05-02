@@ -1,5 +1,8 @@
 let timelinesData = {};
 
+/**@type {number} */
+let lastX = 0;
+
 /**
  * @description Load calendar with provided data
  * @param {{label: string, date: string, id: any, iconClass: string, customClass: string}[]} data
@@ -207,8 +210,6 @@ $.fn.loadTimeline = function(data, options) {
     // handlers of events
     /**@type {boolean} */
     let canDrag;
-    /**@type {number} */
-    let lastX = 0;
 
     context.on({
       mousemove: e => {
@@ -298,6 +299,7 @@ $.fn.goToDate = function(date) {
     if (fullScrollWidth > widthBox) {
       let maxScroll = Math.floor(fullScrollWidth - widthBox);
 
+      let elementsFound = 0;
       $(this)
         .find("li")
         .find(".find-date")
@@ -311,7 +313,7 @@ $.fn.goToDate = function(date) {
             maxScroll += 54;
           } else {
             if (widthUntilDate > maxScroll) widthUntilDate = maxScroll;
-
+            lastX = widthUntilDate;
             $(this)
               .find(".father-box")
               .attr(
