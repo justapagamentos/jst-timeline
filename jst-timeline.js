@@ -1,3 +1,5 @@
+let timelinesData = {};
+
 /**
  * @description Load calendar with provided data
  * @param {{label: string, date: string, id: any, iconClass: string, customClass: string}[]} data
@@ -57,8 +59,11 @@ $.fn.loadTimeline = function(data, options) {
     }
   }
 
+  const id = $(this).attr("id");
+
   // Clears the box before add another
-  $(this).empty();
+  $(this).destroyTimeine();
+  timelinesData[id] = orderedData;
 
   $(this).attr("class", "timeline-box");
 
@@ -244,26 +249,56 @@ $.fn.turnoffEvents = function() {
   $(this).off();
 };
 
+/**@description Destroys the timeline */
+$.fn.destroyTimeine = function() {
+  $(this).empty();
+  const id = $(this).attr("id");
+  delete timelinesData[id];
+};
+
+/**@description Go to a passed date */
 $.fn.goToDate = function(date) {
+  const widthBox = $(this).width();
+  const timelineId = $(this).attr("id");
+  const timelineData = timelinesData[timelineId];
+  let fullScrollWidth = 0;
   let widthUntilDate = 0;
-  $(this)
-    .find("li")
-    .find(".find-date")
-    .each(i => {
-      const { innerText, scrollWidth } = $(this)
+
+  if (timelineData) {
+    timelineData.forEach((_, i) => {
+      const width = $(this)
+        .find(".father-box li")
+        .get(i).scrollWidth;
+      fullScrollWidth += width;
+    });
+
+    // If can scroll
+    if (fullScrollWidth > widthBox) {
+      let maxScroll = Math.floor(fullScrollWidth - widthBox);
+
+      $(this)
         .find("li")
         .find(".find-date")
-        .get(i);
-      if (innerText !== date) {
-        widthUntilDate += scrollWidth + 18;
-      } else {
-        $(this)
-          .find(".father-box")
-          .attr(
-            "style",
-            `transition: transform 0.5s;transform: translate(-${widthUntilDate}px)`
-          );
-        return;
-      }
-    });
+        .each(i => {
+          const { innerText, scrollWidth } = $(this)
+            .find("li")
+            .find(".find-date")
+            .get(i);
+          if (innerText !== date) {
+            widthUntilDate += scrollWidth + 18;
+            maxScroll += 54;
+          } else {
+            if (widthUntilDate > maxScroll) widthUntilDate = maxScroll;
+
+            $(this)
+              .find(".father-box")
+              .attr(
+                "style",
+                `transition: transform 0.5s;transform: translate(-${widthUntilDate}px)`
+              );
+            return;
+          }
+        });
+    }
+  }
 };

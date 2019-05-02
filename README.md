@@ -26,11 +26,11 @@ A smooth timeline<br />
 ```html
 <link
   rel="stylesheet"
-  href="https://unpkg.com/@justa/jst-timeline@1.0.28/jst-timeline.css"
+  href="https://unpkg.com/@justa/jst-timeline@1.0.29/jst-timeline.css"
 />
 <script
   type="text/javascript"
-  src="https://unpkg.com/@justa/jst-timeline@1.0.28/jst-timeline.js"
+  src="https://unpkg.com/@justa/jst-timeline@1.0.29/jst-timeline.js"
 ></script>
 ```
 
@@ -71,8 +71,9 @@ $("#timeline").loadTimeline(data, options);
 
 ## Reload
 
+You don't need to destroy the timeline. it's already done in loadTimeline function
+
 ```javascript
-// To reload the timeline, just call
 const data2 = [
   { label: "Em estoque (Recife)", date: "10-04-1995", iconId: 0 },
   { label: "Em estoque (Alpha)", date: "16-04-1995", iconId: 0 },
@@ -105,13 +106,13 @@ Just use jquery events
 
 ```javascript
 $("#timeline")
-  .find(".father-box .data-box .data")
+  .find(".data")
   .click(e => {
     console.log(e);
   });
 // Multiple events
 $("#timeline")
-  .find(".father-box .data-box .data")
+  .find(".data")
   .on({
     mouseover: e => {
       console.log(e);
@@ -131,6 +132,21 @@ It's always a good practice to finish the events when it'll not be used anymore
 $("#timeline").turnOffEvents();
 ```
 
+## Destroying the timeline
+
+```javascript
+$("#timeline").destroyTimeline();
+```
+
+## jquery functions
+
+|      Name       |          Description           |  Parameters   |
+| :-------------: | :----------------------------: | :-----------: |
+|  loadTimeline   |       Loads the timeline       | data, options |
+|    GoToDate     |        scroll to a date        |    string     |
+| destroyTimeline |     Destroys the timeline      |               |
+|  turnoffEvents  | Turnoff timeline jquery events |               |
+
 ## data
 
 | key         | Description                          | Required |             Type              |
@@ -147,7 +163,7 @@ $("#timeline").turnOffEvents();
 - The class passed will be the box icon
 - If there's an **iconClass** in the box, the **iconClass** will be prioritized over the **iconClasses**
 
-## Options
+## options
 
 | key            | Description              | Required |  Type   | Default value |
 | -------------- | ------------------------ | :------: | :-----: | :-----------: |
