@@ -37,11 +37,8 @@ $.fn.loadTimeline = function(data, options) {
   }
 
   if (dataToOrder.length > 1) {
-    if (reverse)
-      orderedData = showEmptyDates
-        ? reverseGetDate(data)
-        : reverseQuickSort(data);
-    else orderedData = showEmptyDates ? getDate(data) : quickSort(data);
+    orderedData = showEmptyDates ? getDate(data) : quickSort(data);
+    if (reverse) orderedData = orderedData.reverse();
 
     orderedData.forEach(elem => {
       if (elem.label) {
@@ -80,18 +77,21 @@ $.fn.loadTimeline = function(data, options) {
     const { label, date, iconClass, customClass, id } = item;
 
     if (label) {
+      const shortLabel =
+        label.length >= 24 ? `${label.substring(0, 24)}...` : label;
+
       $(this).find(".father-box").append(`
         <li class="data-box${customClass ? ` ${customClass}` : ""}" ${
         iconClass ? "" : 'style="margin-top: 15px;"'
       }${id ? ` id="${id}"` : ""}>
-          <span class="data"${id ? ` id="${id}"` : ""}>
+          <div class="data"${id ? ` id="${id}"` : ""}>
           ${
             iconClass
               ? `<span class="${iconClass}" aria-hidden="true"></span><br />`
               : ""
           }
-            <b>${label}</b>
-          </span>
+            <b>${shortLabel}</b>
+          </div>
           <div class="vertical-line"></div>
           <div class="ball"></div>
           <p class="find-date">${date}</p>
@@ -145,15 +145,6 @@ $.fn.loadTimeline = function(data, options) {
   }
 
   /**
-   * @description Order array reverted with an quicksort
-   * @param {any[]} array
-   */
-  function reverseQuickSort(array) {
-    const arr = quickSort(array);
-    return arr.reverse();
-  }
-
-  /**
    * @description get date array if this is to show emptyDates
    * @param {any[]} array
    */
@@ -167,15 +158,6 @@ $.fn.loadTimeline = function(data, options) {
       orderedData[find] = elem;
     });
     return orderedData;
-  }
-
-  /**
-   * @description get date array if this is to show emptyDates and reverse the array
-   * @param {any[]} array
-   */
-  function reverseGetDate(array) {
-    const arr = getDate(array);
-    return arr.reverse();
   }
 
   /**
