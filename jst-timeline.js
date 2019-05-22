@@ -77,9 +77,6 @@ $.fn.loadTimeline = function(data, options) {
     const { label, date, iconClass, customClass, id } = item;
 
     if (label) {
-      const shortLabel =
-        label.length >= 24 ? `${label.substring(0, 24)}...` : label;
-
       $(this).find(".father-box").append(`
         <li class="data-box${customClass ? ` ${customClass}` : ""}" ${
         iconClass ? "" : 'style="margin-top: 15px;"'
@@ -90,7 +87,7 @@ $.fn.loadTimeline = function(data, options) {
               ? `<span class="${iconClass}" aria-hidden="true"></span><br />`
               : ""
           }
-            <b>${shortLabel}</b>
+            <b>${label}</b>
           </div>
           <div class="vertical-line"></div>
           <div class="ball"></div>
