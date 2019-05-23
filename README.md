@@ -155,8 +155,8 @@ $("#timeline").destroyTimeline();
 | date        | The date                             |   yes    | string (format: 'DD/MM/YYYY') |
 | id          | An id for the field                  |    no    |            string             |
 | iconId      | Links icon to the key of iconClasses |    no    |            string             |
-| iconClass   | An class of an icon for this day     |    no    |            string             |
-| customClass | An class for this day                |    no    |            string             |
+| iconClass   | A class of an icon for this day      |    no    |            string             |
+| customClass | A class for this day                 |    no    |            string             |
 
 ### iconClass
 

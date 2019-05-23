@@ -57,6 +57,12 @@
   font-size: 12px;
   color: #fff;
   background-color: #076e95;
+  border-radius: 4px;
+  box-shadow: 2px 2px 4px #888888;
+  width: 155px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .timeline-box .father-box .data-box .vertical-line {
