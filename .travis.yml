@@ -1,0 +1,13 @@
+language: node_js
+
+node_js:
+  - 10
+
+before_script:
+  - npm install -g @angular/cli
+
+script:
+  - npm install
+  - npm run build:all
+
+cache: node_modules
